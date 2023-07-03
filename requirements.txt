@@ -1,10 +1,11 @@
-et-xmlfile==1.1.0
+﻿et-xmlfile==1.1.0
 mysql-connector-python==8.0.33
 numpy==1.25.0
 openpyxl==3.1.2
 pandas==2.0.3
 protobuf==3.20.3
 python-dateutil==2.8.2
+python-dotenv==1.0.0
 pytz==2023.3
 six==1.16.0
 tzdata==2023.3
