@@ -8,14 +8,18 @@ import mysql.connector
 import pandas as pd
 
 
+output_dir = "output"
+
+
 def choose_filename(item_name):
-    num = 2
     try:
         index_dot = item_name.index(".")
         item_name = item_name[0:index_dot]
     except ValueError:
         print("choose_filename error")
 
+    num = 2
+    item_name = os.path.join(output_dir, item_name)
     while os.path.exists(item_name + ".xlsx"):
         try:
             index = item_name.index("(")
@@ -108,7 +112,7 @@ def export_safekeeping(cursor, date_num):
     cursor.execute(query)
     res = cursor.fetchall()
     df = pd.DataFrame(res, columns=cursor.column_names)
-    file_name = date_num + "回收订单保管金.xlsx"
+    file_name = os.path.join(output_dir, date_num + "回收订单保管金.xlsx")
     df.to_excel(file_name, index=False)
 
     logging.info("Finish export " + file_name)
@@ -143,6 +147,8 @@ def main():
         return
 
     logging.info("Starting...")
+    if not os.path.exists(output_dir):
+        os.mkdir(output_dir)
 
     date_num = args[1]
 
